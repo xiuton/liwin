@@ -44,9 +44,6 @@ jobs:
     - name: Build WebAssembly
       run: wasm-pack build --target web --out-dir public/pkg
       
-    - name: Copy pkg to public
-      run: cp -r pkg public/
-
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
