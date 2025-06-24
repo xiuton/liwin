@@ -313,12 +313,19 @@ MIT License
 
 ```sh
 npm install
-
+```
+```sh
 wasm-pack build --target web
 
-npx tailwindcss -i ./styles/input.css -o ./public/styles/output.css
-
 xcopy pkg public\pkg /E /I /Y
-
+```
+or
+```sh
+wasm-pack build --target web --out-dir public/pkg
+```
+```sh
+npx tailwindcss -i ./styles/input.css -o ./public/styles/output.css
+```
+```sh
 npx serve public
 ```

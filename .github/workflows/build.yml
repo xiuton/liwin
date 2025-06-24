@@ -42,7 +42,7 @@ jobs:
       run: npx tailwindcss -i ./styles/input.css -o ./public/styles/output.css
       
     - name: Build WebAssembly
-      run: wasm-pack build --target web
+      run: wasm-pack build --target web --out-dir public/pkg
       
     - name: Copy pkg to public
       run: cp -r pkg public/
