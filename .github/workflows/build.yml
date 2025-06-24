@@ -41,14 +41,11 @@ jobs:
     - name: Build TailwindCSS
       run: npx tailwindcss -i ./styles/input.css -o ./public/styles/output.css
 
-    - name: List public directory before build
-      run: ls -R public
+    # - name: List public directory before build
+    #   run: ls -R public
       
     - name: Build WebAssembly
       run: wasm-pack build --target web --out-dir public/pkg
-
-    - name: List public directory after build
-      run: ls -R public
 
     - name: Remove pkg/.gitignore
       run: rm -f public/pkg/.gitignore
@@ -59,6 +56,3 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: public
         publish_branch: gh-pages
-
-    - name: List public directory stop deploy
-      run: ls -R public

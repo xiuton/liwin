@@ -311,6 +311,7 @@ MIT License
 ## 其余内容（项目结构、技术栈、组件用法等）详见下方原文档 
 
 
+
 ```sh
 npm install
 ```
@@ -325,7 +326,31 @@ wasm-pack build --target web --out-dir public/pkg
 ```
 ```sh
 npx tailwindcss -i ./styles/input.css -o ./public/styles/output.css
+
+# or
+
+npx tailwindcss -i ./styles/input.css -o ./public/styles/output.css --minify
 ```
 ```sh
 npx serve public
+```
+
+```sh
+cargo clean
+
+rm public/pkg
+
+rm public/styles/output.css
+
+rm node_modules
+
+npx tailwindcss -i ./styles/input.css -o ./public/styles/output.css --minify
+
+wasm-pack build --target web --out-dir public/pkg
+
+npx serve public -p 8080
+```
+
+```sh
+cargo clean ; rm public/pkg ; rm public/styles/output.css ; rm node_modules ; npx tailwindcss -i ./styles/input.css -o ./public/styles/output.css --minify ; wasm-pack build --target web --out-dir public/pkg ; npx serve public -p 8080
 ```
