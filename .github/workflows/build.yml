@@ -50,6 +50,9 @@ jobs:
     - name: List public directory after build
       run: ls -R public
 
+    - name: Remove pkg/.gitignore
+      run: rm -f public/pkg/.gitignore
+
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
