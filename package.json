@@ -1,0 +1,36 @@
+{
+  "name": "liwin",
+  "version": "0.1.0",
+  "description": "A modern web application template built with Rust + Dioxus + TailwindCSS",
+  "main": "index.js",
+  "scripts": {
+    "build": "bash build.sh",
+    "build:css": "tailwindcss -i ./styles/input.css -o ./public/styles/output.css --watch",
+    "build:css:prod": "tailwindcss -i ./styles/input.css -o ./public/styles/output.css --minify",
+    "dev": "npm run build:css & bash build.sh && serve pkg -p 8080",
+    "serve": "serve pkg -p 8080",
+    "clean": "rm -rf pkg/",
+    "watch": "nodemon --exec 'bash build.sh' --watch src --ext rs"
+  },
+  "keywords": [
+    "rust",
+    "dioxus",
+    "tailwindcss",
+    "wasm",
+    "web",
+    "template"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1",
+    "nodemon": "^3.0.2",
+    "tailwindcss": "^3.4.0",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "@tailwindcss/aspect-ratio": "^0.4.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+} 
