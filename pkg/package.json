@@ -1,0 +1,15 @@
+{
+  "name": "liwin",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "liwin_bg.wasm",
+    "liwin.js",
+    "liwin.d.ts"
+  ],
+  "main": "liwin.js",
+  "types": "liwin.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
