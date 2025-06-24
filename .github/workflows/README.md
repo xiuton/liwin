@@ -11,6 +11,7 @@
   - 编译 WebAssembly
   - 自动部署到 GitHub Pages
 - **部署**: 仅在 main/master 分支推送时部署
+- **权限**: 使用 GitHub Pages 官方 Actions，无需额外配置
 
 ### 2. `test.yml` - 测试构建
 - **触发条件**: 推送到 main/master/develop 分支或创建 PR
@@ -34,6 +35,7 @@
 1. **启用 GitHub Pages**:
    - 进入仓库设置 → Pages
    - Source 选择 "GitHub Actions"
+   - 确保仓库有 Pages 权限
 
 2. **推送代码**:
    ```bash
@@ -46,12 +48,27 @@
    - 进入仓库的 Actions 标签页
    - 查看工作流运行状态
 
+## 权限配置
+
+工作流使用了以下权限：
+- `contents: read` - 读取仓库内容
+- `pages: write` - 写入 GitHub Pages
+- `id-token: write` - 用于身份验证
+
 ## 注意事项
 
-- 确保仓库有 `GITHUB_TOKEN` 权限（默认自动提供）
-- 首次部署可能需要几分钟时间
-- 构建产物会自动上传到 GitHub Pages
-- 可以通过 Actions 标签页下载构建产物进行本地测试
+- ✅ 使用官方 GitHub Pages Actions，无需手动配置 token
+- ✅ 自动处理权限问题
+- ✅ 支持并发部署控制
+- ✅ 构建产物会自动上传到 GitHub Pages
+- ✅ 可以通过 Actions 标签页下载构建产物进行本地测试
+
+## 故障排除
+
+如果遇到权限错误：
+1. 确保仓库设置中启用了 GitHub Pages
+2. 检查仓库的 Actions 权限设置
+3. 确保工作流文件中的权限配置正确
 
 ## 自定义
 
