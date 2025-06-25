@@ -39,11 +39,8 @@ jobs:
       run: npm ci
       
     - name: Build TailwindCSS
-      run: npx tailwindcss -i ./styles/input.css -o ./public/styles/output.css
+      run: npx @tailwindcss/cli -i ./styles/input.css -o ./public/styles/output.css --minify --release
 
-    # - name: List public directory before build
-    #   run: ls -R public
-      
     - name: Build WebAssembly
       run: wasm-pack build --target web --out-dir public/pkg
 

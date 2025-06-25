@@ -1,287 +1,217 @@
 # Liwin - Rust + Dioxus + TailwindCSS 项目模板
 
-一个基于 Rust + Dioxus + TailwindCSS 的现代化 Web 应用模板，采用模块化的目录结构，便于快速开发和维护。
+一个基于 Rust + Dioxus + TailwindCSS 的现代化 Web 应用模板，具有模块化的目录结构和完整的开发工具链。
 
 ## 🚀 技术栈
 
-- **后端**: Rust (最新版本)
-- **前端框架**: Dioxus 0.6.3
-- **样式**: TailwindCSS 3.4+ (CLI 构建)
-- **路由**: Dioxus Router 0.6.3
-- **构建**: wasm-pack 0.12 + TailwindCSS CLI
+- **Rust** - 系统编程语言
+- **Dioxus** - 用于构建用户界面的 Rust 框架
+- **TailwindCSS** - 实用优先的 CSS 框架
+- **WebAssembly** - 高性能的 Web 技术
+- **wasm-pack** - Rust 到 WebAssembly 的构建工具
 
 ## 📁 项目结构
 
 ```
 Liwin/
 ├── src/
-│   ├── main.rs              # 应用入口
-│   ├── router/              # 路由相关
-│   │   ├── mod.rs
-│   │   └── routes.rs
-│   ├── pages/               # 页面组件
-│   │   ├── mod.rs
-│   │   ├── home.rs
-│   │   ├── about.rs
-│   │   ├── contact.rs
-│   │   ├── dashboard.rs
-│   │   └── not_found.rs
-│   └── components/          # 可复用组件
-│       ├── mod.rs
-│       ├── layout.rs        # 布局组件
-│       ├── ui.rs           # UI基础组件
-│       └── common.rs       # 通用组件
-├── public/                  # 静态资源
-│   ├── index.html
-│   ├── styles/
-│   │   └── output.css      # 构建后的 CSS
-│   └── icons/
-├── styles/                  # 样式源文件
-│   └── input.css           # TailwindCSS 输入文件
-├── tailwind.config.js       # TailwindCSS 配置
-├── package.json            # Node.js 依赖和脚本
-├── Cargo.toml
-└── README.md
+│   ├── components/     # 可复用组件
+│   ├── pages/         # 页面组件
+│   ├── router/        # 路由配置
+│   └── lib.rs         # 主入口文件
+├── public/            # 静态资源
+├── styles/            # 样式文件
+├── .github/           # GitHub Actions 配置
+└── target/            # 构建输出
 ```
 
-## 🚀 Windows 下完整启动步骤
+## 🛠️ 本地开发
 
-### 1. 安装依赖
+### 环境要求
 
-- 安装 Rust（推荐使用 rustup）
-- 安装 wasm-pack
-- 安装 Node.js 18+（推荐使用 nvm）
+- **Rust**: 1.70+ (推荐使用 rustup 安装)
+- **Node.js**: 18+ (推荐使用 nvm 安装)
+- **wasm-pack**: 0.12+ (通过 cargo 安装)
 
-```powershell
-# 安装 Rust
-https://www.rust-lang.org/zh-CN/tools/install
+### 安装步骤
 
-# 安装 wasm-pack
-cargo install wasm-pack
+1. **安装 Rust**
+   ```bash
+   # 下载并运行 rustup-init.exe
+   # 或访问 https://rustup.rs/
+   ```
 
-# 安装 Node.js（推荐用 nvm）
-# 参考 https://github.com/coreybutler/nvm-windows
-nvm install 18
-nvm use 18
+2. **安装 wasm-pack**
+   ```bash
+   cargo install wasm-pack
+   ```
 
-# 安装 Node.js 依赖
-npm install
-```
+3. **安装 Node.js 依赖**
+   ```bash
+   npm install
+   ```
 
-### 2. 构建项目
+4. **构建项目**
+   ```bash
+   # Windows
+   npm run build
+   
+   # 或手动执行
+   npx tailwindcss -i ./styles/input.css -o ./public/styles/output.css
+   wasm-pack build --target web --out-dir public/pkg
+   ```
 
-```powershell
-# Windows 下请运行批处理脚本
-./build.bat
-```
+5. **启动开发服务器**
+   ```bash
+   npm run dev
+   ```
 
-### 3. 启动开发服务器
+6. **访问应用**
+   - 打开浏览器访问: http://localhost:3000
 
-```powershell
-# 推荐使用 serve 启动静态服务器
-npx serve pkg -p 8080
+## 🌐 GitHub Pages 部署
 
-# 或者使用 Python
-python -m http.server 8080
-```
+### 自动部署
 
-### 4. 访问项目
+项目已配置 GitHub Actions 自动部署到 GitHub Pages：
 
-在浏览器中打开：
-```
-http://localhost:8080
-```
+1. **推送代码到主分支**
+   ```bash
+   git add .
+   git commit -m "Update project"
+   git push origin main
+   ```
 
-## 🛠️ 开发环境设置
+2. **GitHub Actions 自动构建**
+   - 工作流文件: `.github/workflows/deploy.yml`
+   - 自动触发: 推送到 `main` 或 `master` 分支
+   - 构建步骤:
+     - 安装 Node.js 和 Rust 环境
+     - 构建 TailwindCSS (生产模式，压缩)
+     - 构建 WebAssembly (release 模式)
+     - 部署到 GitHub Pages
 
-### 前置要求
+3. **配置 GitHub Pages**
+   - 进入仓库 Settings → Pages
+   - Source: 选择 "GitHub Actions"
+   - 确保仓库有 `pages: write` 权限
 
-1. 安装 Rust (推荐使用 rustup)
-2. 安装 wasm-pack
-3. 安装 Node.js 18+ (用于 TailwindCSS 构建)
+### 手动部署
 
-### 安装依赖
+如果需要手动部署：
 
+1. **构建生产版本**
+   ```bash
+   npm run build:prod
+   ```
+
+2. **部署到 GitHub Pages**
+   ```bash
+   # 使用 gh-pages 包
+   npx gh-pages -d public
+   ```
+
+### 自定义域名
+
+1. **添加 CNAME 文件**
+   ```bash
+   echo "your-domain.com" > public/CNAME
+   ```
+
+2. **配置 DNS**
+   - 添加 CNAME 记录指向 `username.github.io`
+   - 或在 GitHub Pages 设置中配置自定义域名
+
+## 📦 构建脚本
+
+### 开发构建
 ```bash
-# 安装 wasm-pack
-cargo install wasm-pack
-
-# 安装 Node.js 依赖 (包括 TailwindCSS)
-npm install
+npm run build
 ```
 
-### 开发命令
-
+### 生产构建
 ```bash
-# 构建项目 (包含 TailwindCSS)
-bash build.sh
-
-# 开发模式 (监听 CSS 变化)
-npm run dev
-
-# 仅构建 CSS
-npm run build:css
-
-# 生产构建 CSS
-npm run build:css:prod
-
-# 启动开发服务器
-npm run serve
+npm run build:prod
 ```
 
-### 开发工作流
+### 清理构建
+```bash
+npm run clean
+```
 
-1. 修改 Rust 代码或 TailwindCSS 样式
-2. 运行 `bash build.sh` 或 `npm run dev`
-3. 刷新浏览器查看更改
-
-## 🎨 样式系统
+## 🔧 配置说明
 
 ### TailwindCSS 配置
+- 配置文件: `tailwind.config.js`
+- 输入文件: `styles/input.css`
+- 输出文件: `public/styles/output.css`
 
-项目使用 TailwindCSS CLI 进行构建，配置文件位于 `tailwind.config.js`：
+### Rust 配置
+- 主配置: `Cargo.toml`
+- 目标: `wasm32-unknown-unknown`
+- 输出目录: `public/pkg`
 
-```javascript
-module.exports = {
-  content: [
-    "./src/**/*.{rs,html}",
-    "./public/**/*.html",
-    "./styles/**/*.css"
-  ],
-  theme: {
-    extend: {
-      colors: {
-        primary: { /* 自定义颜色 */ }
-      }
-    }
-  },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),
-  ],
-}
-```
+### GitHub Actions 配置
+- 工作流文件: `.github/workflows/deploy.yml`
+- 权限: `pages: write`, `id-token: write`
+- 环境: `github-pages`
 
-### 自定义样式
+## 🚀 性能优化
 
-在 `styles/input.css` 中添加自定义样式：
+### 生产环境优化
+- WebAssembly 使用 release 模式构建
+- TailwindCSS 自动压缩和优化
+- 静态资源优化和缓存
 
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+### 缓存策略
+- GitHub Actions 使用缓存加速构建
+- 浏览器缓存静态资源
+- Service Worker 支持 (可选)
 
-/* 你的自定义样式 */
-.custom-class {
-    /* 样式定义 */
-}
-```
+## 🔍 故障排除
 
-### 包含的插件
+### 常见问题
 
-- `@tailwindcss/forms` - 表单样式
-- `@tailwindcss/typography` - 排版样式
-- `@tailwindcss/aspect-ratio` - 宽高比
+1. **构建失败**
+   ```bash
+   # 清理缓存
+   cargo clean
+   npm run clean
+   
+   # 重新安装依赖
+   npm install
+   cargo build
+   ```
 
-## 🎨 组件使用
+2. **GitHub Pages 404 错误**
+   - 检查 `public/404.html` 文件
+   - 确认路由配置正确
+   - 验证 base path 设置
 
-### 基础组件
+3. **WebAssembly 加载失败**
+   - 检查 `public/pkg` 目录
+   - 验证 MIME 类型配置
+   - 确认浏览器支持
 
-```rust
-use crate::components::{Button, Card, Container, Input};
+### 调试技巧
 
-// 按钮
-Button {
-    href: Some("/dashboard".to_string()),
-    "点击我"
-}
+1. **本地调试**
+   ```bash
+   # 启用详细日志
+   RUST_LOG=debug npm run dev
+   ```
 
-// 卡片
-Card {
-    class: "p-6",
-    h1 { "标题" }
-    p { "内容" }
-}
+2. **GitHub Actions 调试**
+   - 查看 Actions 日志
+   - 检查权限设置
+   - 验证环境变量
 
-// 输入框
-Input {
-    value: name.clone(),
-    oninput: move |e| name.set(e.value.clone()),
-    placeholder: "请输入姓名"
-}
-```
+## 📚 相关资源
 
-### 布局组件
-
-```rust
-use crate::components::Layout;
-
-Layout {
-    // 页面内容
-    div { "你的内容" }
-}
-```
-
-## 📱 响应式设计
-
-项目使用 TailwindCSS 的响应式类，支持移动端和桌面端：
-
-- `sm:` - 640px 及以上
-- `md:` - 768px 及以上  
-- `lg:` - 1024px 及以上
-- `xl:` - 1280px 及以上
-
-## 🎯 特性
-
-- ✅ 模块化架构
-- ✅ 类型安全的 Rust 代码
-- ✅ 现代化的 UI 设计
-- ✅ 响应式布局
-- ✅ 组件化开发
-- ✅ 路由管理
-- ✅ 热重载支持
-- ✅ TailwindCSS CLI 构建
-- ✅ CSS 优化和压缩
-- ✅ 最新版本技术栈
-
-## 🔧 自定义配置
-
-### 添加新的 TailwindCSS 插件
-
-```bash
-npm install @tailwindcss/your-plugin
-```
-
-然后在 `tailwind.config.js` 中添加：
-
-```javascript
-plugins: [
-  require('@tailwindcss/your-plugin'),
-]
-```
-
-### 自定义主题
-
-在 `tailwind.config.js` 的 `theme.extend` 中添加自定义配置。
-
-## 📦 部署
-
-### 构建生产版本
-
-```bash
-# 构建优化的 CSS 和 WASM
-bash build.sh
-```
-
-### 部署到静态托管
-
-将 `pkg/` 目录部署到任何静态文件托管服务：
-
-- Netlify
-- Vercel
-- GitHub Pages
-- AWS S3
+- [Dioxus 官方文档](https://dioxuslabs.com/)
+- [Rust WebAssembly 指南](https://rustwasm.github.io/docs/book/)
+- [TailwindCSS 文档](https://tailwindcss.com/docs)
+- [GitHub Pages 文档](https://pages.github.com/)
 
 ## 🤝 贡献
 
@@ -353,4 +283,13 @@ npx serve public -p 8080
 
 ```sh
 cargo clean ; rm public/pkg ; rm public/styles/output.css ; rm node_modules ; npx tailwindcss -i ./styles/input.css -o ./public/styles/output.css --minify ; wasm-pack build --target web --out-dir public/pkg ; npx serve public -p 8080
+```
+
+
+-s 或 --single 选项会让所有 404 路径都 fallback 到 index.html，前端路由就能接管了。
+
+```sh
+pnpm build:css:prod
+
+pnpm serve
 ```
