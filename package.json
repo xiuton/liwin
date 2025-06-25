@@ -11,10 +11,13 @@
     "build:rust:prod": "wasm-pack build --target web --out-dir public/pkg --release",
     "build": "pnpm run build:css:dev && pnpm run build:rust",
     "build:prod": "pnpm run build:css:prod && pnpm run build:rust:prod",
-    "dev": "pnpm run build:css:dev && serve public -p 8080",
-    "serve": "npx serve -s public -p 8080",
-    "clean": "rm -rf public/pkg/",
-    "watch": "nodemon --watch src --ext rs,css"
+    "dev": "concurrently \"pnpm run serve\" \"pnpm run watch:build\"",
+    "serve": "serve -s public -p 8080",
+    "clean:css": "pnpm exec rimraf public/styles/output.css",
+    "clean:pkg": "pnpm exec rimraf public/pkg",
+    "clean:rust": "cargo clean",
+    "clean": "pnpm run clean:css && pnpm run clean:pkg && pnpm run clean:rust",
+    "watch:build": "nodemon --watch src --watch styles --ext rs,css --exec \"pnpm run build\""
   },
   "keywords": [
     "rust",
@@ -28,8 +31,10 @@
   "license": "MIT",
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.10",
-    "tailwindcss": "^4.1.10",
+    "concurrently": "^9.2.0",
+    "nodemon": "^3.0.2",
+    "rimraf": "^5.0.5",
     "serve": "^14.2.1",
-    "nodemon": "^3.0.2"
+    "tailwindcss": "^4.1.10"
   }
-} 
+}

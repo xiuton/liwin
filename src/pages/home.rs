@@ -1,20 +1,18 @@
 use dioxus::prelude::*;
-use crate::components::hello::Hello;
 use dioxus_router::prelude::*;
 use crate::router::AppRoute;
+use crate::components::button::Button;
 
 #[component]
 pub fn Home() -> Element {
     let nav = use_navigator();
     rsx! {
-        div { class: "p-8", 
-            h1 { class: "text-2xl font-bold", "Home Page" }
-            Hello {}
-            button {
-                class: "mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700",
-                onclick: move |_| { nav.push(AppRoute::AboutPage {}); },
-                "跳转到 About"
-            }
+        h1 { class: "text-4xl font-extrabold text-blue-700 mb-4", "🏠 Home Page" }
+        p { class: "text-lg text-gray-600 mb-8 text-center", "欢迎来到 Dioxus + TailwindCSS 示例项目！" }
+        Button {
+            class: "mb-4 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md text-white",
+            onclick: move |_| { nav.push(AppRoute::AboutPage {}); },
+            "跳转到 About"
         }
     }
 } 
