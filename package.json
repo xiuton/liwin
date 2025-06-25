@@ -6,8 +6,12 @@
   "scripts": {
     "build:css:watch": "npx @tailwindcss/cli -i ./styles/input.css -o ./public/styles/output.css --watch",
     "build:css:prod": "npx @tailwindcss/cli -i ./styles/input.css -o ./public/styles/output.css --minify",
+    "build:css:dev": "npx @tailwindcss/cli -i ./styles/input.css -o ./public/styles/output.css",
     "build:rust": "wasm-pack build --target web --out-dir public/pkg",
-    "dev": "npm run build:css:dev && serve public/pkg -p 8080",
+    "build:rust:prod": "wasm-pack build --target web --out-dir public/pkg --release",
+    "build": "pnpm run build:css:dev && pnpm run build:rust",
+    "build:prod": "pnpm run build:css:prod && pnpm run build:rust:prod",
+    "dev": "pnpm run build:css:dev && serve public -p 8080",
     "serve": "npx serve -s public -p 8080",
     "clean": "rm -rf public/pkg/",
     "watch": "nodemon --watch src --ext rs,css"

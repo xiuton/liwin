@@ -21,6 +21,11 @@ jobs:
       with:
         node-version: '18'
         cache: 'npm'
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: '10.12.1'
         
     - name: Setup Rust
       uses: actions-rs/toolchain@v1
@@ -38,11 +43,8 @@ jobs:
     - name: Install dependencies
       run: npm ci
       
-    - name: Build TailwindCSS
-      run: npx @tailwindcss/cli -i ./styles/input.css -o ./public/styles/output.css --minify --release
-
-    - name: Build WebAssembly
-      run: wasm-pack build --target web --out-dir public/pkg
+    - name: Build TailwindCSS and WebAssembly
+      run: pnpm build:prod
 
     - name: Remove pkg/.gitignore
       run: rm -f public/pkg/.gitignore
