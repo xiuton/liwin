@@ -141,6 +141,79 @@ npm run clean
 
 ## 🔧 配置说明
 
+### TOML 配置管理
+
+项目支持使用 TOML 文件进行配置管理，提供了类型安全的配置结构：
+
+#### 配置文件
+- **示例配置**: `config.example.toml` - 配置模板文件
+- **实际配置**: `config.toml` - 应用使用的配置文件
+- **配置模块**: `src/config.rs` - 配置结构体定义和加载逻辑
+
+#### 配置结构
+```toml
+[app]
+name = "Liwin Demo"
+version = "1.0.0"
+description = "Dioxus + TailwindCSS 配置管理演示应用"
+
+[server]
+host = "127.0.0.1"
+port = 3000
+debug = true
+
+[features]
+auth = true
+api = true
+websocket = false
+caching = true
+
+[ui]
+theme = "light"
+language = "zh-CN"
+timezone = "Asia/Shanghai"
+```
+
+#### 使用方法
+1. **复制配置文件**
+   ```bash
+   cp config.example.toml config.toml
+   ```
+
+2. **修改配置**
+   - 编辑 `config.toml` 文件
+   - 所有配置项都有类型安全的结构体定义
+   - 支持嵌套配置和复杂数据类型
+
+3. **在代码中使用**
+   ```rust
+   use crate::config::AppConfig;
+   
+   // 加载配置
+   let config = AppConfig::load()?;
+   
+   // 使用配置
+   println!("应用名称: {}", config.app.name);
+   println!("服务器端口: {}", config.server.port);
+   ```
+
+4. **配置演示页面**
+   - 访问 `/config` 路由查看配置管理演示
+   - 展示如何加载和显示配置信息
+   - 提供配置热重载功能
+
+#### 配置项说明
+- **app**: 应用基本信息（名称、版本、描述）
+- **server**: 服务器配置（主机、端口、调试模式）
+- **database**: 数据库配置（连接URL、连接池大小）
+- **features**: 功能开关（认证、API、WebSocket、缓存）
+- **ui**: 用户界面配置（主题、语言、时区）
+- **logging**: 日志配置（级别、文件、大小限制）
+- **security**: 安全配置（会话超时、登录限制、密码策略）
+- **email**: 邮件配置（SMTP设置）
+- **storage**: 文件存储配置（类型、路径、文件限制）
+- **analytics**: 分析配置（提供商、跟踪ID）
+
 ### TailwindCSS 配置
 - 配置文件: `tailwind.config.js`
 - 输入文件: `styles/input.css`
