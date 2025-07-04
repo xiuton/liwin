@@ -8,8 +8,10 @@ pub enum AppRoute {
     #[layout(Layout)]
     #[route("/", Home)]
     HomePage {},
-    #[route("/about", About)]
-    AboutPage {},
     #[route("/:..segments", NotFound)]
     NotFoundPage { segments: Vec<String> },
+    #[end_layout]
+
+    #[route("/about", About)]
+    AboutPage {}
 } 
